@@ -57,3 +57,30 @@
 .shop-caption{position:relative;z-index:4;padding-top:26px}
 @media(max-width:800px){.shop-visual{overflow:visible}.kit-art{width:min(100%,360px);height:340px}.shop-pot img,.shop-pot.citrus-product img{height:88%;max-width:76%}.shop-fruit{width:178px;max-width:54%;bottom:-15px}}
 @media(max-width:440px){.kit-art{width:min(100%,360px);height:350px}.shop-pot img,.shop-pot.citrus-product img{height:88%;max-width:76%}.shop-fruit{width:168px;max-width:55%;bottom:-14px}}
+
+/* Seleção do kit compacta em telas estreitas */
+@media(max-width:440px){
+  .shop-panel{padding:14px 14px 13px}
+  .shop-panel>h3{font-size:19px;margin-bottom:13px}
+  .shop-panel fieldset{margin-bottom:13px}
+  .shop-panel legend{font-size:12px;margin-bottom:8px}
+  .flavor-tabs{gap:8px}
+  .flavor-tabs label>span{padding:9px 7px;font-size:12px}
+  .flavor-tabs input:checked+span{padding:8px 6px}
+  .kit-option{gap:8px;padding:8px 8px;margin-bottom:6px;border-radius:8px}
+  .kit-option:has(input:checked){padding:7px 7px}
+  .kit-option input{width:15px;height:15px}
+  .kit-option strong{font-size:13px;line-height:1.2}
+  .kit-option small{font-size:10px;line-height:1.25;margin-top:3px}
+  .kit-option>span:not(.option-pricing){max-width:116px}
+  .option-pricing strong{font-size:12px}
+  .option-pricing small{font-size:9px}
+  .order-summary{padding:10px 0}
+  .order-summary>span{font-size:11px}
+  .order-summary strong{font-size:13px}
+  .selected-pricing{gap:5px;margin-bottom:12px}
+  .selected-pricing>strong{font-size:22px;letter-spacing:-.5px}
+  .selected-pricing>span{font-size:13px}
+  .buy-button{padding:14px 16px;font-size:14px}
+  .checkout-note{font-size:10px;line-height:1.5;margin:10px 0 0}
+}
