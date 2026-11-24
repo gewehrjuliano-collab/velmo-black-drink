@@ -44,3 +44,16 @@
 .single-product img{position:relative;z-index:1;display:block;width:100%;height:100%;max-width:100%;inset:auto;object-fit:contain;filter:drop-shadow(0 12px 18px rgba(0,0,0,.28))}
 @media(max-width:800px){.single-product{height:350px;width:min(100%,360px);margin:-2px auto -8px}}
 @media(max-width:440px){.single-product{height:360px;width:min(100%,360px);margin:0 auto -8px}}
+
+/* Mostruário dos kits: a fruta ultrapassa a moldura */
+.shop-visual{overflow:visible}
+.kit-art{width:min(100%,380px);height:360px;position:relative;isolation:isolate;overflow:visible;margin:0 auto}
+.kit-frame{position:absolute;z-index:0;inset:12px 12px 18px;border:1px solid #ffffff18;border-radius:12px;background:radial-gradient(ellipse at 50% 38%,#1b4037 0%,#0a1b17 70%);box-shadow:inset 0 0 34px #6fdfc911}
+.shop-pot{position:absolute;z-index:1;inset:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:visible;margin:0;transform:none;mask-image:none;-webkit-mask-image:none}
+.shop-pot img,.shop-pot.citrus-product img{position:relative;width:auto;height:91%;max-width:76%;max-height:100%;top:auto;left:auto;object-fit:contain;filter:drop-shadow(0 14px 20px rgba(0,0,0,.32))}
+.shop-fruit{position:absolute;z-index:3;bottom:-16px;width:190px;max-width:53%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,.28));pointer-events:none}
+.shop-fruit.strawberry-fruit{left:-12px}
+.shop-fruit.tangerine-fruit{right:-12px}
+.shop-caption{position:relative;z-index:4;padding-top:26px}
+@media(max-width:800px){.shop-visual{overflow:visible}.kit-art{width:min(100%,360px);height:340px}.shop-pot img,.shop-pot.citrus-product img{height:88%;max-width:76%}.shop-fruit{width:178px;max-width:54%;bottom:-15px}}
+@media(max-width:440px){.kit-art{width:min(100%,360px);height:350px}.shop-pot img,.shop-pot.citrus-product img{height:88%;max-width:76%}.shop-fruit{width:168px;max-width:55%;bottom:-14px}}

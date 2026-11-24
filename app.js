@@ -29,6 +29,11 @@ function updateOrder() {
   pot.classList.toggle('citrus-product', flavor === 'tangerina');
   pot.classList.toggle('strawberry-product', flavor === 'morango');
   document.querySelector('#shop-image').alt = `Pote de Velmo Black Drink sabor ${displayFlavor.toLowerCase()}`;
+  document.querySelector('#shop-image').src = `assets/velmo-${flavor}.webp`;
+  const fruit = document.querySelector('#shop-fruit');
+  fruit.src = `assets/frutas-${flavor}.webp`;
+  fruit.classList.toggle('tangerine-fruit', flavor === 'tangerina');
+  fruit.classList.toggle('strawberry-fruit', flavor === 'morango');
   document.querySelector('#kit-art').setAttribute('aria-label', `Velmo Black Drink sabor ${displayFlavor.toLowerCase()}`);
 }
 function renderOptions() {
