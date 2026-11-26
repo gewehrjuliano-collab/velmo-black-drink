@@ -104,3 +104,14 @@ body.black-friday{color-scheme:dark;--bg:#000;--panel:#101010;--accent:#f5ca82;-
 .black-friday :is(.button,.outline:hover,.proof-controls button:hover){background:var(--accent);color:#141006}
 .black-friday .button:hover{background:#ffdfa6}
 .black-friday :is(a,button,summary,input):focus-visible,.black-friday .flavor-tabs input:focus-visible+span{outline-color:var(--accent)}
+
+/* Formula cards */
+.black-friday #formula h2 em { color: var(--accent); }
+.black-friday #formula .ingredients article {
+  background: linear-gradient(145deg, #ffe1a6, #e7b461);
+  border-color: #f5ca82;
+  color: #241707;
+}
+.black-friday #formula .ingredients article h3 { color: #241707; }
+.black-friday #formula .ingredients article p { color: #39260e !important; }
+.black-friday #formula .ingredient-symbol { color: #604016; }
