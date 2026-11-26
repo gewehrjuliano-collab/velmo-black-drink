@@ -36,7 +36,7 @@ export async function onRequestGet({ env, request }) {
   let totals;
   try {
     const { results } = await env.VISITS_DB.prepare(
-      "SELECT site, total FROM visit_totals WHERE site IN ('meta', 'tiktok')"
+      "SELECT site, total FROM visit_totals WHERE site IN ('meta', 'tiktok', 'black-friday')"
     ).all();
     totals = new Map(results.map(({ site, total }) => [site, Number(total)]));
   } catch {
@@ -45,6 +45,7 @@ export async function onRequestGet({ env, request }) {
 
   const meta = totals.get('meta') ?? 0;
   const tiktok = totals.get('tiktok') ?? 0;
+  const blackFriday = totals.get('black-friday') ?? 0;
   const format = new Intl.NumberFormat('pt-BR');
   const updated = new Intl.DateTimeFormat('pt-BR', {
     dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo',
@@ -63,14 +64,14 @@ export async function onRequestGet({ env, request }) {
 main{max-width:880px;margin:auto;padding:clamp(40px,8vw,92px) 24px}
 h1{font-size:clamp(2.3rem,6vw,4.1rem);line-height:1.05;margin:12px 0}
 p{color:#b9d2c9;line-height:1.6}.brand{color:#8de2cc;font-weight:700}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:26px 0}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0}
 article{border:1px solid #376254;border-radius:16px;background:#172f29;padding:24px}
 .total{grid-column:1/-1;background:#204337}
 h2{font-size:1rem;margin:0 0 8px}
 strong{font-size:clamp(2rem,6vw,3.5rem);font-variant-numeric:tabular-nums}
 a{display:inline-block;color:#10251f;background:#8de2cc;padding:11px 16px;border-radius:8px;font-weight:700;text-decoration:none}
 a:focus-visible{outline:2px solid white;outline-offset:4px}
-@media(max-width:480px){.cards{grid-template-columns:1fr}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -79,11 +80,12 @@ a:focus-visible{outline:2px solid white;outline-offset:4px}
   <h1>Painel de visitas</h1>
   <p>Totais acumulados desde a instalação do contador. Atualização automática a cada 5 segundos.</p>
   <section class="cards" aria-label="Visitas por versão">
-    <article class="total"><h2>Total combinado</h2><strong>${format.format(meta + tiktok)}</strong></article>
+    <article class="total"><h2>Total combinado</h2><strong>${format.format(meta + tiktok + blackFriday)}</strong></article>
     <article><h2>Meta</h2><strong>${format.format(meta)}</strong></article>
     <article><h2>TikTok</h2><strong>${format.format(tiktok)}</strong></article>
+    <article><h2>Black Friday</h2><strong>${format.format(blackFriday)}</strong></article>
   </section>
-  <p>O mesmo IP é contado uma vez a cada 24 horas em cada versão. Uma visita às duas versões entra nos dois totais.</p>
+  <p>O mesmo IP é contado uma vez a cada 24 horas em cada versão. Se o mesmo IP acessar mais de uma versão, cada versão registra sua própria visita.</p>
   <p>Consultado em ${updated} (horário de Brasília).</p>
   <a href="/painel-visitas">Atualizar números</a>
 </main>
