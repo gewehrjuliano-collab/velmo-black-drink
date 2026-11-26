@@ -1,4 +1,5 @@
 const sites = new Map([
+  ['black-friday.velmo-black-drink-b7m.pages.dev', 'black-friday'],
   ['velmo-black-drink-b7m.pages.dev', 'meta'],
   ['tiktok-pixel.velmo-black-drink-b7m.pages.dev', 'tiktok'],
 ]);
