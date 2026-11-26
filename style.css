@@ -87,3 +87,20 @@
 .black-friday .hero h1 em{color:#f5ca82}
 .black-friday .kit-option{grid-template-columns:auto minmax(0,1fr)}
 .black-friday .buy-button{margin-top:1rem}
+
+body.black-friday{color-scheme:dark;--bg:#000;--panel:#101010;--accent:#f5ca82;--text:#faf7ef;--muted:#c7c2b8;background:#000}
+.black-friday :is(.light,.ritual,.guarantee,.closing,.announcement,.ribbon){background:#000;color:var(--text);border-color:#392d1e}
+.black-friday :is(.shop-panel,.shop-visual,.flavor,.proof-card,.proof-card>span,.proof-lightbox,.proof-lightbox-bar){background:#101010;color:var(--text);border-color:#463722}
+.black-friday :is(.light,.shop-panel,.shop-visual,.guarantee) :is(h2,h3,h4,strong,legend,summary){color:var(--text)}
+.black-friday :is(.light,.shop-panel,.shop-visual,.guarantee) :is(p,small),.black-friday .order-summary>span,.black-friday .guarantee .guarantee-note,.black-friday .art-caption{color:var(--muted)!important}
+.black-friday :is(.light,.guarantee) p.eyebrow,.black-friday .faq.light .questions summary::after,.black-friday .purchase-perks span,.black-friday .shop-caption>span{color:var(--accent)!important}
+.black-friday .orbit,.black-friday .single-product::before{background:radial-gradient(ellipse,#956a3930,transparent 70%)}
+.black-friday .kit-frame{background:radial-gradient(ellipse,#272015,#080808 75%);box-shadow:none}
+.black-friday :is(.kit-option,.flavor-tabs label>span,.outline,.proof-controls button,.guarantee-seal,.purchase-perks,.order-summary,.faq.light .questions details){border-color:#675333}
+.black-friday :is(.kit-option,.flavor-tabs label>span){background:#111;color:var(--text)}
+.black-friday .kit-option:has(input:checked),.black-friday .flavor-tabs input:checked+span{background:#271e12;color:var(--text);border-color:var(--accent)}
+.black-friday .kit-option input{accent-color:var(--accent)}
+.black-friday :is(.outline,.proof-controls button){color:var(--accent)}
+.black-friday :is(.button,.outline:hover,.proof-controls button:hover){background:var(--accent);color:#141006}
+.black-friday .button:hover{background:#ffdfa6}
+.black-friday :is(a,button,summary,input):focus-visible,.black-friday .flavor-tabs input:focus-visible+span{outline-color:var(--accent)}
