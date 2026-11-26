@@ -1,13 +1,13 @@
 const products = {
   morango: [
-    {label: '1 pote', description: '40% de desconto', url: 'https://pay.hest.com.br/0477b52d-41ef-4199-b664-d7f1a0582acb'},
-    {label: '3 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/3a2e2ceb-96cb-47ad-9107-ab9ac6e236aa'},
-    {label: '5 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/e9c27337-07bd-4844-87ae-ebd0e1ae868a'}
+    {label: '1 pote', price: 'R$ 125,94', original: 'R$ 209,90', url: 'https://pay.hest.com.br/0477b52d-41ef-4199-b664-d7f1a0582acb'},
+    {label: '3 potes', price: 'R$ 234,99', original: 'R$ 335,90', url: 'https://pay.hest.com.br/3a2e2ceb-96cb-47ad-9107-ab9ac6e236aa'},
+    {label: '5 potes', price: 'R$ 323,90', original: 'R$ 461,90', url: 'https://pay.hest.com.br/e9c27337-07bd-4844-87ae-ebd0e1ae868a'}
   ],
   tangerina: [
-    {label: '1 mês', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/74b16719-8fc8-4d2e-9dad-4297efb6d54a'},
-    {label: '3 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/e7e5e669-cbaf-49d5-8063-4d9517f35a47'},
-    {label: '5 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/0cfd3e53-a2f4-4bf0-8976-709bbe694ab6'}
+    {label: '1 pote', price: 'R$ 125,94', original: 'R$ 209,90', url: 'https://pay.hest.com.br/74b16719-8fc8-4d2e-9dad-4297efb6d54a'},
+    {label: '3 potes', price: 'R$ 234,99', original: 'R$ 335,90', url: 'https://pay.hest.com.br/e7e5e669-cbaf-49d5-8063-4d9517f35a47'},
+    {label: '5 potes', price: 'R$ 323,90', original: 'R$ 461,90', url: 'https://pay.hest.com.br/0cfd3e53-a2f4-4bf0-8976-709bbe694ab6'}
   ]
 };
 let flavor = 'morango';
@@ -39,8 +39,14 @@ function renderOptions() {
     const input = document.createElement('input'); input.type = 'radio'; input.name = 'kit'; input.value = String(index); input.checked = index === selected;
     const text = document.createElement('span');
     const title = document.createElement('strong'); title.textContent = product.label;
-    const detail = document.createElement('small'); detail.textContent = product.description;
-    text.append(title, detail);
+    const detail = document.createElement('small');
+    const original = document.createElement('s');
+    original.textContent = product.original;
+    const promotion = document.createElement('strong');
+    promotion.textContent = product.price;
+    promotion.style.color = 'var(--accent)';
+    detail.append('De ', original);
+    text.append(title, detail, promotion);
     label.append(input, text);
     input.addEventListener('change', () => { selected = index; updateOrder(); });
     options.append(label);
