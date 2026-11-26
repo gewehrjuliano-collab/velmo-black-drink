@@ -84,3 +84,6 @@
   .buy-button{padding:14px 16px;font-size:14px}
   .checkout-note{font-size:10px;line-height:1.5;margin:10px 0 0}
 }
+.black-friday .hero h1 em{color:#f5ca82}
+.black-friday .kit-option{grid-template-columns:auto minmax(0,1fr)}
+.black-friday .buy-button{margin-top:1rem}

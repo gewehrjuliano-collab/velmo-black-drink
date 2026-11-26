@@ -1,18 +1,15 @@
 const products = {
   morango: [
-    {label: '1 pote', description: 'Para começar sua rotina', cash: 209.90, installment: 21.61, url: 'https://pay.hest.com.br/6650a276-740d-407b-8af1-67c9f785ba76'},
-    {label: '2+2', description: '4 potes no total', cash: 365.60, installment: 37.50, url: 'https://pay.hest.com.br/0c210347-44d5-4fbb-9e41-2d170ca71a4e'},
-    {label: '3+3', description: '6 potes no total', cash: 491.80, installment: 50.37, url: 'https://pay.hest.com.br/978c81b9-73b6-415e-889e-fe4c66d251a5'},
-    {label: '12 meses', description: 'Opção para uma rotina prolongada', cash: 851.80, installment: 87.11, url: 'https://pay.hest.com.br/f7ec560f-582c-47e6-a076-6a14c8774b12'}
+    {label: '1 pote', description: '40% de desconto', url: 'https://pay.hest.com.br/0477b52d-41ef-4199-b664-d7f1a0582acb'},
+    {label: '3 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/3a2e2ceb-96cb-47ad-9107-ab9ac6e236aa'},
+    {label: '5 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/e9c27337-07bd-4844-87ae-ebd0e1ae868a'}
   ],
   tangerina: [
-    {label: '1 mês', description: 'Para começar sua rotina', cash: 209.90, installment: 21.61, url: 'https://pay.hest.com.br/dbd46528-eaab-4825-98c6-9f97b78a45e2'},
-    {label: '2+2', description: '4 potes no total', cash: 365.60, installment: 37.50, url: 'https://pay.hest.com.br/ae9123c3-fc44-4a5a-b1ed-2d2017d8b27e'},
-    {label: '5 meses', description: 'Mais tempo de constância', cash: 461.90, installment: 47.32, url: 'https://pay.hest.com.br/769740ab-8090-40ec-86e8-37f59cb1d68b'},
-    {label: '12 meses', description: 'Opção para uma rotina prolongada', cash: 851.80, installment: 87.11, url: 'https://pay.hest.com.br/dd8ca541-10fd-4585-b85d-1c463a77611b'}
+    {label: '1 mês', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/74b16719-8fc8-4d2e-9dad-4297efb6d54a'},
+    {label: '3 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/e7e5e669-cbaf-49d5-8063-4d9517f35a47'},
+    {label: '5 meses', description: 'Kit de Black Friday', url: 'https://pay.hest.com.br/0cfd3e53-a2f4-4bf0-8976-709bbe694ab6'}
   ]
 };
-const money = value => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 let flavor = 'morango';
 let selected = 0;
 const options = document.querySelector('#kit-options');
@@ -22,8 +19,6 @@ function updateOrder() {
   document.querySelector('#order-name').textContent = `${displayFlavor} · ${product.label}`;
   document.querySelector('#visual-flavor').textContent = displayFlavor.toUpperCase();
   document.querySelector('#buy-link').href = product.url;
-  document.querySelector('#order-price').textContent = `12x de ${money(product.installment)}`;
-  document.querySelector('#order-cash').textContent = `ou ${money(product.cash)} à vista`;
   document.querySelector('#buy-link').setAttribute('aria-label', `Comprar Velmo Black Drink ${displayFlavor}, ${product.label}`);
   const pot = document.querySelector('.shop-pot');
   pot.classList.toggle('citrus-product', flavor === 'tangerina');
@@ -46,11 +41,7 @@ function renderOptions() {
     const title = document.createElement('strong'); title.textContent = product.label;
     const detail = document.createElement('small'); detail.textContent = product.description;
     text.append(title, detail);
-    const pricing = document.createElement('span'); pricing.className = 'option-pricing';
-    const installments = document.createElement('strong'); installments.textContent = `12x de ${money(product.installment)}`;
-    const cash = document.createElement('small'); cash.textContent = `ou ${money(product.cash)} à vista`;
-    pricing.append(installments, cash);
-    label.append(input, text, pricing);
+    label.append(input, text);
     input.addEventListener('change', () => { selected = index; updateOrder(); });
     options.append(label);
   });
