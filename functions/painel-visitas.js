@@ -34,10 +34,15 @@ export async function onRequestGet({ env, request }) {
   }
 
   let totals;
+  let history;
   try {
     const { results } = await env.VISITS_DB.prepare(
       "SELECT site, total FROM visit_totals WHERE site IN ('meta', 'tiktok', 'black-friday')"
     ).all();
+    const { results: daily } = await env.VISITS_DB.prepare(
+      "SELECT day, SUM(CASE WHEN site='meta' THEN total ELSE 0 END) AS meta, SUM(CASE WHEN site='tiktok' THEN total ELSE 0 END) AS tiktok, SUM(CASE WHEN site='black-friday' THEN total ELSE 0 END) AS black_friday, SUM(total) AS combined FROM visit_daily WHERE site IN ('meta','tiktok','black-friday') GROUP BY day ORDER BY day DESC LIMIT 30"
+    ).all();
+    history = daily;
     totals = new Map(results.map(({ site, total }) => [site, Number(total)]));
   } catch {
     return new Response('Não foi possível consultar as visitas agora. Atualize a página para tentar novamente.', { status: 503, headers });
@@ -47,6 +52,11 @@ export async function onRequestGet({ env, request }) {
   const tiktok = totals.get('tiktok') ?? 0;
   const blackFriday = totals.get('black-friday') ?? 0;
   const format = new Intl.NumberFormat('pt-BR');
+  const dailyRows = history.map(row => {
+    const day = /^\d{4}-\d{2}-\d{2}$/.test(row.day) ? row.day.split('-').reverse().join('/') : '';
+    return '<tr><th scope="row">' + day + '</th>' +
+      [row.meta, row.tiktok, row.black_friday, row.combined].map(total => '<td>' + format.format(total) + '</td>').join('') + '</tr>';
+  }).join('');
   const updated = new Intl.DateTimeFormat('pt-BR', {
     dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo',
   }).format(new Date());
@@ -72,6 +82,12 @@ strong{font-size:clamp(2rem,6vw,3.5rem);font-variant-numeric:tabular-nums}
 a{display:inline-block;color:#10251f;background:#8de2cc;padding:11px 16px;border-radius:8px;font-weight:700;text-decoration:none}
 a:focus-visible{outline:2px solid white;outline-offset:4px}
 @media(max-width:600px){.cards{grid-template-columns:1fr}}
+.daily { margin-top: 36px; }
+.daily-scroll { overflow-x: auto; }
+.daily table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.daily th,.daily td { padding: 12px; border-bottom: 1px solid #376254; white-space: nowrap; text-align: right; }
+.daily th:first-child { text-align: left; }
+.daily h2 { font-size: 1.4rem; }
 </style>
 </head>
 <body>
@@ -88,6 +104,13 @@ a:focus-visible{outline:2px solid white;outline-offset:4px}
   <p>O mesmo IP é contado uma vez a cada 24 horas em cada versão. Se o mesmo IP acessar mais de uma versão, cada versão registra sua própria visita.</p>
   <p>Consultado em ${updated} (horário de Brasília).</p>
   <a href="/painel-visitas">Atualizar números</a>
+  <section class="daily" aria-labelledby="daily-heading">
+    <h2 id="daily-heading">Histórico diário</h2>
+    <p>Últimos 30 dias com visitas registradas desde a ativação do histórico. Datas no horário de Brasília.</p>
+    ${dailyRows ? `<div class="daily-scroll" tabindex="0" role="region" aria-label="Tabela de visitas por dia"><table>
+      <thead><tr><th scope="col">Data</th><th scope="col">Meta</th><th scope="col">TikTok</th><th scope="col">Black Friday</th><th scope="col">Total</th></tr></thead>
+      <tbody>${dailyRows}</tbody></table></div>` : '<p>Aguardando as primeiras visitas do histórico.</p>'}
+  </section>
 </main>
 </body>
 </html>`, { headers });
